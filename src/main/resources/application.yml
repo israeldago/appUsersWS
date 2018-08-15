@@ -1,0 +1,26 @@
+app.name: appUsersWS
+server:
+  servlet.context-path: /${app.name}
+  port: 8081
+  host: localhost
+
+ws.endpoint:
+  port: 8082
+  name: 'UsersWS'
+  wsdl: 'http://${server.host}:${ws.endpoint.port}${server.servlet.context-path}/${ws.endpoint.name}?WSDL'
+
+spring:
+  output.ansi.enabled: ALWAYS
+  h2:
+    console:
+      enabled: true
+      path: /db-console
+  datasource:
+    driverclassname: org.h2.Driver
+    url: jdbc:h2:file:./userDB
+    username: theUser
+    password: thePass
+  jpa:
+    showsql: true
+    hibernate:
+      ddlauto: update
