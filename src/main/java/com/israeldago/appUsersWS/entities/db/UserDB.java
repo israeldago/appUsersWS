@@ -4,14 +4,16 @@ import com.israeldago.appUsersWS.entities.dto.UserDTO;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USERS")
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @ToString(exclude = "rolesCollection")
 public class UserDB implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +32,8 @@ public class UserDB implements java.io.Serializable {
     private String password;
     @Column(name = "REGISTRATION_DATE")
     private LocalDateTime registrationDate;
+    @OneToMany(mappedBy = "user")
+    private Collection<RoleDB> rolesCollection;
 
     @Builder
     public UserDB(Integer id, String firstName, String lastName, LocalDate dateOfBirth, String identityCardNumber, String username, String password, LocalDateTime registrationDate) {

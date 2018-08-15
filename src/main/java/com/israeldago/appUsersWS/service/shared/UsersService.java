@@ -1,13 +1,14 @@
 package com.israeldago.appUsersWS.service.shared;
 
 import com.israeldago.appUsersWS.entities.dto.UserDTO;
-
+import com.israeldago.appUsersWS.entities.enums.AppRole;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @WebService(serviceName = "UsersWS")
@@ -31,4 +32,6 @@ public interface UsersService {
     Boolean offBoardUser(@WebParam(name = "userId") int id);
     @WebMethod(exclude = true)
     Stream<UserDTO> findAllUsers();
+    @WebMethod (exclude = true)
+    Set<AppRole> findUserRoles(@WebParam(name = "user_id") Integer id);
 }

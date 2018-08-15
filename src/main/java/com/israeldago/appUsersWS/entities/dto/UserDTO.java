@@ -1,16 +1,23 @@
 package com.israeldago.appUsersWS.entities.dto;
 
 import com.israeldago.appUsersWS.entities.db.UserDB;
-import lombok.*;
+import com.israeldago.appUsersWS.entities.enums.AppRole;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import javax.persistence.ElementCollection;
 import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @XmlRootElement(name = "User")
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlType(propOrder = {"id","username", "password","firstName", "lastName", "dateOfBirth","identityCardNumber", "registrationDate"})
+@XmlType(propOrder = {"id","username", "password","firstName", "lastName", "dateOfBirth","identityCardNumber", "registrationDate", "roleCollection"})
 @Data
 @NoArgsConstructor
+@ToString(exclude = "roleCollection")
 public class UserDTO implements java.io.Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +37,8 @@ public class UserDTO implements java.io.Serializable{
     private String password;
     @XmlElement
     private LocalDateTime registrationDate;
+    @ElementCollection
+    private Set<AppRole> roleCollection;
 
     @Builder
     public UserDTO(int id, String firstName, String lastName, LocalDate dateOfBirth, String identityCardNumber, String username, String password, LocalDateTime registrationDate) {
